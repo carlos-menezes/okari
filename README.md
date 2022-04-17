@@ -1,8 +1,9 @@
-# okari
+# おかり okari
 
-> a stupidly simple static site generator
+## ~ this is a work in progress ~
+Okari is a stupidly simple static site generator which converts CommonMark and GitHub Flavoured Markdown files to HTML pages.
 
-# **~ this is a work in progress ~**
+The project is very much in its early stages and thus may feel incomplete. Check out [Future](#future) for a list of planned features. Feel free to help by expanding the list of sending PRs.
 
 ## Testing
 
