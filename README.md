@@ -22,7 +22,17 @@ If you so insist:
 3. Build with `cargo build`
 4. Generate with `./target/debug/okari site`
 
-This will convert the files and slot them into `build`.
+This will convert the files and slot them into `build`, i.e.:
+
+```sh
+build/
+├── hello_world.html
+├── index.html
+└── nested
+    └── nested
+        └── nested
+            └── a.html
+```
 
 Okari uses [`comrak`](https://docs.rs/comrak/latest/comrak/), a CommonMark and GitHub Flavoured Markdown compatible Markdown parser. Thus, any input **must** be compatible with one of the specs. Example file:
 
