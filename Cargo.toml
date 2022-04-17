@@ -8,4 +8,4 @@ edition = "2021"
 [dependencies]
 comrak = "0.10"
 yaml-rust = "0.4"
-
+walkdir = "2.3.2"
