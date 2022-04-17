@@ -40,6 +40,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio metus, facil
 
 ## Future
 This is an ever expandable list of features:
-- [ ] Handle subdirectories (at the moment, only flat dirs are supported)
+- [+] Handle subdirectories
 - [ ] Generate common metatags
   - [ ] `image`, `description` and `date` must be present in the frontmatter
