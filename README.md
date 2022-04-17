@@ -8,8 +8,8 @@
 
 If you so insist:
 
-1. `mkdir <folder>`
-2. Add Markdown files inside `<folder>` (e.g. `site`), e.g.
+1. Create a source folder, e.g. `mkdir site`
+2. Add Markdown files inside said folder, e.g.
     ```sh
     site
     ├── hello_world.md
