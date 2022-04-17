@@ -20,7 +20,9 @@ impl Builder {
         for entry in walker {
             let entry = entry?;
             if !entry.metadata()?.is_dir() {
-                // Trim the first content by the first '/', as it will return <folder>(/nested/dir/to/some/file) --- and the c,apture group is actually what we want.
+                // We only want the following capture group (pretend `okari` is the source folder): okari/(tree/to/some/file)/file.md
+
+                // Split by `/` and discard the first element, so we're left with `(tree/to/some/file)/file.md`
                 let mut path_without_build_dir = entry
                     .path()
                     .components()
@@ -28,6 +30,7 @@ impl Builder {
                     .map(|c| c.as_os_str().to_str().unwrap())
                     .collect::<Vec<&str>>();
 
+                // Remove the last element of the vector, effectively leaving `path_without_build_dir` with an array of strings `(tree/to/some/file)`
                 path_without_build_dir.drain(path_without_build_dir.len() - 1..);
                 let output_dir = path_without_build_dir.join(std::path::MAIN_SEPARATOR_STR);
 
