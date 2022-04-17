@@ -52,10 +52,14 @@ impl Builder {
                 // Calling `.parent()` will return the entire path except the actual file name
                 std::fs::create_dir_all(&file_path.parent().unwrap())?;
 
-                let mut file = File::create(&path)?;
+                let mut file = File::create(&file_path)?;
                 file.write(html.as_bytes())?;
 
-                println!("> Generated `{}`", &file_name);
+                println!(
+                    "> Generated {} (to: {})",
+                    &file_name,
+                    &file_path.to_str().unwrap()
+                );
             }
         }
         Ok(())
