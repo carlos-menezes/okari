@@ -6,7 +6,7 @@ use std::{
 
 use walkdir::WalkDir;
 
-use crate::converter::Converter;
+use crate::{converter::Converter, sitemap::Sitemap};
 
 pub struct Builder {}
 
@@ -15,6 +15,7 @@ impl Builder {
     where
         P: AsRef<Path>,
     {
+        let generated_time = chrono::Utc::now();
         let base_path = Path::new("./build");
         let walker = WalkDir::new(&path);
         for entry in walker {
@@ -32,7 +33,6 @@ impl Builder {
 
                 // Remove the last element of the vector, effectively leaving `path_without_build_dir` with an array of strings `(tree/to/some/file)`
                 path_without_build_dir.drain(path_without_build_dir.len() - 1..);
-                let output_dir = path_without_build_dir.join(std::path::MAIN_SEPARATOR_STR);
 
                 // Get the file name (without the extension)
                 let file_name = format!(
@@ -46,14 +46,19 @@ impl Builder {
                     .map(|b| *b as char)
                     .collect();
 
-                let html = Converter::run(&file_content);
-
-                let file_path = base_path.clone().join(&output_dir).join(&file_name);
+                let output_dir = path_without_build_dir.join(std::path::MAIN_SEPARATOR_STR);
+                let file_path = base_path.join(&output_dir).join(&file_name);
                 // Calling `.parent()` will return the entire path except the actual file name
                 std::fs::create_dir_all(&file_path.parent().unwrap())?;
 
+                let html = Converter::run(&file_content);
+
+                let sitemap_url = format!("{}/{}", path_without_build_dir.join("/"), file_name);
+                let sitemap_entry = Sitemap::generate_entry(&sitemap_url, &generated_time);
+                println!("Generated sitemap entry: {}", sitemap_entry);
+
                 let mut file = File::create(&file_path)?;
-                file.write(html.as_bytes())?;
+                file.write_all(html.as_bytes())?;
 
                 println!(
                     "> Generated {} (to: {})",
