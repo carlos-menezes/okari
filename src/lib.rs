@@ -1,4 +1,4 @@
-#![feature(main_separator_str)]
+pub static BASE_URL: &'static str = "http://localhost/";
 
 pub mod builder;
 mod converter;
