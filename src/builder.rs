@@ -74,6 +74,8 @@ impl Builder {
         }
         sitemap.push("\n</urlset>".to_string());
         Sitemap::new(&sitemap)?;
+        // Subtract 2 from `sitemap.len()` due to the opening/closing `urlset` tag
+        println!("> Generated sitemap.xml with {} entries", sitemap.len() - 2);
         Ok(())
     }
 }
